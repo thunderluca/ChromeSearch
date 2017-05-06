@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Linq;
 using Windows.System;
+using Windows.UI.ViewManagement;
 
 namespace ChromeSearch.WinPhone
 {
@@ -25,6 +26,10 @@ namespace ChromeSearch.WinPhone
             this.OnNavigate += new NavigateHandler(Navigate);
             _customHttpHeaderSet = false;
             WebView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
+
+            StatusBar.GetForCurrentView().BackgroundColor = Constants.GoogleBackgroundColor;
+            StatusBar.GetForCurrentView().BackgroundOpacity = 1.0;
+            StatusBar.GetForCurrentView().ForegroundColor = Constants.GoogleForegroundColor;
         }
 
         private void Navigate(object sender)
@@ -37,7 +42,7 @@ namespace ChromeSearch.WinPhone
             WebView.NavigateWithHttpRequestMessage(httpRequestMessage);
         }
 
-        private async void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             if (_customHttpHeaderSet)
             {
@@ -49,7 +54,7 @@ namespace ChromeSearch.WinPhone
 
             var googleUri = GoogleDomainsHelper.Hosts.Any(host => _currentUri.Host.ToLower().Contains(host));
             if (!googleUri)
-                await Launcher.LaunchUriAsync(_currentUri);
+                Launcher.LaunchUriAsync(_currentUri);
             else
                 OnNavigate(this);
         }
