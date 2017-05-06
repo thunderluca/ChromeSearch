@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="d0ed2b18-81cc-430d-ac82-5fac8868bde3"
+    Name="ee09e48d-a314-46c5-ad53-308efb82bfa4"
     Publisher="CN=thund"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="d0ed2b18-81cc-430d-ac82-5fac8868bde3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="ee09e48d-a314-46c5-ad53-308efb82bfa4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>ChromeSearch.UWP</DisplayName>

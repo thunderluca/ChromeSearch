@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ChromeSearch.Shared
+﻿namespace ChromeSearch.Shared
 {
     public static class Constants
     {
