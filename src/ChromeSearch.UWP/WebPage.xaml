@@ -18,20 +18,20 @@
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Back" 
-                          Label="Back"
-                          IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
-                          Command="{Binding BackCommand}"
-                          Foreground="{StaticResource GoogleForegroundBrush}" />
-                <AppBarButton Icon="Refresh" 
-                          Label="Refresh"
-                          IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
-                          Command="{Binding RefreshCommand}"
-                          Foreground="{StaticResource GoogleForegroundBrush}" />
-                <AppBarButton Label="Search"
-                          IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
-                          Command="{Binding HomeCommand}"
-                          Foreground="{StaticResource GoogleForegroundBrush}">
+                <AppBarButton x:Uid="BackAppBarButton" 
+                              Icon="Back" 
+                              IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
+                              Command="{Binding BackCommand}"
+                              Foreground="{StaticResource GoogleForegroundBrush}" />
+                <AppBarButton x:Uid="RefreshAppBarButton" 
+                              Icon="Refresh" 
+                              IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
+                              Command="{Binding RefreshCommand}"
+                              Foreground="{StaticResource GoogleForegroundBrush}" />
+                <AppBarButton x:Uid="SearchAppBarButton" 
+                              IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
+                              Command="{Binding HomeCommand}"
+                              Foreground="{StaticResource GoogleForegroundBrush}">
                     <AppBarButton.Icon>
                         <BitmapIcon UriSource="/Assets/google.png" />
                     </AppBarButton.Icon>

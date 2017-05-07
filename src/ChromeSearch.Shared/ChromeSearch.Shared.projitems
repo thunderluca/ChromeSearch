@@ -15,7 +15,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StatusBarExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\GoogleDomainsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ResourcesHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WebViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
   </ItemGroup>
 </Project>

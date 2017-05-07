@@ -53,18 +53,20 @@ namespace ChromeSearch.Shared.ViewModels
             this.OnNavigate += new NavigateHandler(Navigate);
             _webView.NavigationStarting += OnNavigationStarting;
             _webView.NavigationCompleted += OnNavigationCompleted;
-            _webView.NavigationFailed += OnNavigationFailed;
+            //_webView.NavigationFailed += OnNavigationFailed;
 
             _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
         }
 
-        private async void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
-        {
-            await new MessageDialog(
-                content: $"An error occured. Status code: {(int)e.WebErrorStatus}", 
-                title: "Navigation error")
-                .ShowAsync();
-        }
+        //private void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        //{
+        //    var messageContentFormat = ResourcesHelper.ResourceLoader.GetString("NavigationFailedMessageContentFormat");
+        //    var messageTitle = ResourcesHelper.ResourceLoader.GetString("NavigationFailedMessageTitle");
+
+        //    await new MessageDialog(
+        //        content: string.Format(messageContentFormat, (int)e.WebErrorStatus),
+        //        title: messageTitle).ShowAsync();
+        //}
 
         public void SetStatusBarInstance(StatusBar statusBarInstance)
         {

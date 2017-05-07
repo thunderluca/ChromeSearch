@@ -21,17 +21,17 @@
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
-            <AppBarButton Icon="Back" 
-                          Label="Back"
+            <AppBarButton x:Uid="BackAppBarButton" 
+                          Icon="Back"
                           IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
                           Command="{Binding BackCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
-            <AppBarButton Icon="Refresh" 
-                          Label="Refresh"
+            <AppBarButton x:Uid="RefreshAppBarButton" 
+                          Icon="Refresh" 
                           IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
                           Command="{Binding RefreshCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
-            <AppBarButton Label="Search"
+            <AppBarButton x:Uid="SearchAppBarButton"
                           IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
                           Command="{Binding HomeCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}">
