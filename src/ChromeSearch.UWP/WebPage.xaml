@@ -7,9 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <WebView x:Name="WebView" 
-                 NavigationStarting="OnNavigationStarting"
-                 NewWindowRequested="OnNewWindowRequested" />
-    </Grid>
+    <WebView x:Name="WebView"
+             Grid.Row="0"
+             NavigationStarting="OnNavigationStarting"
+             NewWindowRequested="OnNewWindowRequested" />
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
+                    Foreground="{StaticResource GoogleForegroundBrush}">
+            <AppBarButton Icon="Back" 
+                          Label="Back"
+                          Foreground="{StaticResource GoogleForegroundBrush}" />
+            <AppBarButton Label="Search"
+                          Foreground="{StaticResource GoogleForegroundBrush}">
+                <AppBarButton.Icon>
+                    <BitmapIcon UriSource="/Assets/google.png" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

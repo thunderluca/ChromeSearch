@@ -2,6 +2,10 @@
     x:Class="ChromeSearch.WinPhone.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ChromeSearch.WinPhone">
-
+    xmlns:local="using:ChromeSearch.WinPhone"
+    xmlns:constants="using:ChromeSearch.Shared">
+    <Application.Resources>
+        <SolidColorBrush x:Key="GoogleBackgroundBrush">#FAFAFA</SolidColorBrush>
+        <SolidColorBrush x:Key="GoogleForegroundBrush">#666666</SolidColorBrush>
+    </Application.Resources>
 </Application>

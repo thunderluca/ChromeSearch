@@ -8,8 +8,19 @@
     mc:Ignorable="d"
     Background="White">
 
-    <Grid>
-        <WebView x:Name="WebView"
-                 NavigationStarting="OnNavigationStarting" />
-    </Grid>
+    <WebView x:Name="WebView"
+             NavigationStarting="OnNavigationStarting" />
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
+                    Foreground="{StaticResource GoogleForegroundBrush}">
+            <AppBarButton Icon="Back" Label="Back" />
+            <AppBarButton Label="Search"
+                          Foreground="{StaticResource GoogleForegroundBrush}">
+                <AppBarButton.Icon>
+                    <BitmapIcon UriSource="/Assets/google.png" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

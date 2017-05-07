@@ -52,8 +52,10 @@ namespace ChromeSearch.UWP
             args.Cancel = true;
             _currentUri = args.Uri;
 
-            var googleUri = GoogleDomainsHelper.Hosts.Any(host => _currentUri.Host.ToLower().Contains(host));
-            if (!googleUri)
+            var isGoogleUri = GoogleDomainsHelper.Hosts.Any(host => _currentUri.Host.ToLower().Contains(host));
+            var isGoogleService = GoogleDomainsHelper.Services.Any(service => _currentUri.Host.ToLower().Contains(service));
+
+            if (!isGoogleUri || isGoogleService)
                 Launcher.LaunchUriAsync(_currentUri);
             else
                 OnNavigate(this);
