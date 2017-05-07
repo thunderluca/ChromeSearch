@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BackAppBarButton.Label" xml:space="preserve">
-    <value>Back</value>
+    <value>Indietro</value>
   </data>
   <data name="NavigationFailedMessageContentFormat" xml:space="preserve">
-    <value>An error occured. Error code: {0}</value>
+    <value>È stato generato un errore. Codice errore: {0}</value>
   </data>
   <data name="NavigationFailedMessageTitle" xml:space="preserve">
-    <value>Navigation error</value>
+    <value>Errore di navigazione</value>
   </data>
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Ricarica</value>
   </data>
   <data name="SearchAppBarButton.Label" xml:space="preserve">
-    <value>Search</value>
+    <value>Cerca</value>
   </data>
 </root>

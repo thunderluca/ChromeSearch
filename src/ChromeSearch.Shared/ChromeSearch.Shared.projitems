@@ -21,5 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\it-IT\Resources.resw" />
   </ItemGroup>
 </Project>
