@@ -3,9 +3,16 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>ad434fbc-d259-4f8a-8258-5d04f65fb769</SharedGUID>
+    <SharedGUID>0c7319e6-c30a-45b0-9462-22c658f27a53</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>ChromeSearch.Shared</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\GoogleDomainsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messanging\StatusBarMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WebViewModel.cs" />
+  </ItemGroup>
 </Project>

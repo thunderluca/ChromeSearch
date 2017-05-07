@@ -2,11 +2,13 @@
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.ViewManagement;
-using ChromeSearch.Common.ViewModels;
+using ChromeSearch.Shared.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
-using ChromeSearch.Common.Messanging;
+using ChromeSearch.Shared.Messanging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Phone.UI.Input;
+using Windows.UI;
+using ChromeSearch.Shared;
 
 namespace ChromeSearch.UWP
 {
@@ -25,21 +27,25 @@ namespace ChromeSearch.UWP
 
             if (!App.IsMobile) return;
 
-            StatusBar.GetForCurrentView().InitializeStatusBarWithGoogleColors();
+            StatusBar.GetForCurrentView().BackgroundOpacity = 1.0;
+            StatusBar.GetForCurrentView().ForegroundColor = Constants.GoogleForegroundColor;
+            StatusBar.GetForCurrentView().BackgroundColor = Colors.White;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Messenger.Default.Register<StatusBarMessage>(this, msg =>
-            {
-                if (msg.UseHomeColors)
-                    StatusBar.GetForCurrentView().SetGoogleHomeColor();
-                else
-                    StatusBar.GetForCurrentView().SetGoogleSearchColor();
-            });
+            Messenger.Default.Register<StatusBarMessage>(this, ManageStatusBarMessage);
 
             if (App.IsMobile)
                 HardwareButtons.BackPressed += OnBackPressed;
+        }
+
+        private void ManageStatusBarMessage(StatusBarMessage message)
+        {
+            if (message.UseHomeColors)
+                StatusBar.GetForCurrentView().BackgroundColor = Colors.White;
+            else
+                StatusBar.GetForCurrentView().BackgroundColor = Constants.GoogleStatusBarBackgroundColor;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
