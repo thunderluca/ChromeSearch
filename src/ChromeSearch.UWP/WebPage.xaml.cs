@@ -49,6 +49,7 @@ namespace ChromeSearch.UWP
                 return;
             }
 
+            args.Cancel = true;
             _currentUri = args.Uri;
 
             var googleUri = GoogleDomainsHelper.Hosts.Any(host => _currentUri.Host.ToLower().Contains(host));
