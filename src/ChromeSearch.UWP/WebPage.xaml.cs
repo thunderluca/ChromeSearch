@@ -1,70 +1,67 @@
-﻿using ChromeSearch.Common;
-using System;
-using Windows.Web.Http;
+﻿using System;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
-using System.Linq;
 using Windows.UI.ViewManagement;
+using ChromeSearch.Common.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
+using ChromeSearch.Common.Messanging;
+using Windows.UI.Xaml.Navigation;
+using Windows.Phone.UI.Input;
 
 namespace ChromeSearch.UWP
 {
     public sealed partial class WebPage : Page
     {
-        private bool _customHttpHeaderSet;
-        private Uri _currentUri;
-
-        private delegate void NavigateHandler(object sender);
-        private event NavigateHandler OnNavigate;
+        private WebViewModel ViewModel
+        {
+            get { return this.DataContext as WebViewModel; }
+        }
 
         public WebPage()
         {
             this.InitializeComponent();
 
-            this.OnNavigate += new NavigateHandler(Navigate);
-            _customHttpHeaderSet = false;
-            WebView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
+            this.ViewModel.SetWebViewInstance(this.WebView);
 
             if (!App.IsMobile) return;
 
-            StatusBar.GetForCurrentView().BackgroundColor = Constants.GoogleBackgroundColor;
-            StatusBar.GetForCurrentView().BackgroundOpacity = 1.0;
-            StatusBar.GetForCurrentView().ForegroundColor = Constants.GoogleForegroundColor;
+            StatusBar.GetForCurrentView().InitializeStatusBarWithGoogleColors();
         }
 
-        private void Navigate(object sender)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _customHttpHeaderSet = true;
-
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, _currentUri);
-            httpRequestMessage.Headers.Add("User-Agent", Constants.AndroidChromeUserAgent);
-
-            WebView.NavigateWithHttpRequestMessage(httpRequestMessage);
-        }
-
-        private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            if (_customHttpHeaderSet)
+            Messenger.Default.Register<StatusBarMessage>(this, msg =>
             {
-                _customHttpHeaderSet = false;
-                return;
-            }
+                if (msg.UseHomeColors)
+                    StatusBar.GetForCurrentView().SetGoogleHomeColor();
+                else
+                    StatusBar.GetForCurrentView().SetGoogleSearchColor();
+            });
 
-            args.Cancel = true;
-            _currentUri = args.Uri;
+            if (App.IsMobile)
+                HardwareButtons.BackPressed += OnBackPressed;
+        }
 
-            var isGoogleUri = GoogleDomainsHelper.Hosts.Any(host => _currentUri.Host.ToLower().Contains(host));
-            var isGoogleService = GoogleDomainsHelper.Services.Any(service => _currentUri.Host.ToLower().Contains(service));
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Messenger.Default.Unregister<StatusBarMessage>(this);
 
-            if (!isGoogleUri || isGoogleService)
-                Launcher.LaunchUriAsync(_currentUri);
-            else
-                OnNavigate(this);
+            if (App.IsMobile)
+                HardwareButtons.BackPressed -= OnBackPressed;
         }
 
         private async void OnNewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
         {
             args.Handled = true;
             await Launcher.LaunchUriAsync(args.Referrer);
+        }
+
+        private void OnBackPressed(object sender, BackPressedEventArgs e)
+        {
+            if (!this.WebView.CanGoBack) return;
+
+            e.Handled = true;
+            this.WebView.GoBack();
         }
     }
 }

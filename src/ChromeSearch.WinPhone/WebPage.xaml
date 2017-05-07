@@ -6,16 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="White">
+    Background="White"
+    DataContext="{Binding Web, Source={StaticResource Locator}}">
 
-    <WebView x:Name="WebView"
-             NavigationStarting="OnNavigationStarting" />
+    <WebView x:Name="WebView" />
 
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
-            <AppBarButton Icon="Back" Label="Back" />
+            <AppBarButton Icon="Back" 
+                          Label="Back"
+                          Command="{Binding BackCommand}"
+                          Foreground="{StaticResource GoogleForegroundBrush}" />
             <AppBarButton Label="Search"
+                          Command="{Binding HomeCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}">
                 <AppBarButton.Icon>
                     <BitmapIcon UriSource="/Assets/google.png" />
