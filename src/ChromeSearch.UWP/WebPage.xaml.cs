@@ -3,12 +3,8 @@ using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.ViewManagement;
 using ChromeSearch.Shared.ViewModels;
-using GalaSoft.MvvmLight.Messaging;
-using ChromeSearch.Shared.Messanging;
 using Windows.UI.Xaml.Navigation;
 using Windows.Phone.UI.Input;
-using Windows.UI;
-using ChromeSearch.Shared;
 
 namespace ChromeSearch.UWP
 {
@@ -27,31 +23,17 @@ namespace ChromeSearch.UWP
 
             if (!App.IsMobile) return;
 
-            StatusBar.GetForCurrentView().BackgroundOpacity = 1.0;
-            StatusBar.GetForCurrentView().ForegroundColor = Constants.GoogleForegroundColor;
-            StatusBar.GetForCurrentView().BackgroundColor = Colors.White;
+            this.ViewModel.SetStatusBarInstance(StatusBar.GetForCurrentView());
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Messenger.Default.Register<StatusBarMessage>(this, ManageStatusBarMessage);
-
             if (App.IsMobile)
                 HardwareButtons.BackPressed += OnBackPressed;
         }
 
-        private void ManageStatusBarMessage(StatusBarMessage message)
-        {
-            if (message.UseHomeColors)
-                StatusBar.GetForCurrentView().BackgroundColor = Colors.White;
-            else
-                StatusBar.GetForCurrentView().BackgroundColor = Constants.GoogleStatusBarBackgroundColor;
-        }
-
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            Messenger.Default.Unregister<StatusBarMessage>(this);
-
             if (App.IsMobile)
                 HardwareButtons.BackPressed -= OnBackPressed;
         }

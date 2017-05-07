@@ -1,10 +1,10 @@
 using ChromeSearch.Shared.Helpers;
-using ChromeSearch.Shared.Messanging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using System;
 using Windows.System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 
@@ -15,6 +15,7 @@ namespace ChromeSearch.Shared.ViewModels
         private bool _customHttpHeaderSet;
         private Uri _capturedUri;
         private WebView _webView;
+        private StatusBar _statusBar;
 
         private RelayCommand _homeCommand, _backCommand;
 
@@ -37,6 +38,18 @@ namespace ChromeSearch.Shared.ViewModels
             _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
         }
 
+        public void SetStatusBarInstance(StatusBar statusBarInstance)
+        {
+            if (statusBarInstance == null)
+            {
+                throw new ArgumentNullException(nameof(statusBarInstance));
+            }
+
+            _statusBar = statusBarInstance;
+
+            _statusBar.InitializeStatusBarWithGoogleColors();
+        }
+
         private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             if (_customHttpHeaderSet)
@@ -51,8 +64,13 @@ namespace ChromeSearch.Shared.ViewModels
 
         private void CheckUriAndUpdateStatusBar()
         {
+            if (_statusBar == null) return;
+
             var isSearchUri = GoogleDomainsHelper.IsGoogleSearch(_capturedUri);
-            Messenger.Default.Send(new StatusBarMessage { UseHomeColors = !isSearchUri });
+            if (!isSearchUri)
+                _statusBar.BackgroundColor = Colors.White;
+            else
+                _statusBar.BackgroundColor = Constants.GoogleStatusBarBackgroundColor;
         }
 
         private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
