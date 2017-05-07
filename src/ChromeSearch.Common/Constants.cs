@@ -1,4 +1,4 @@
-﻿namespace ChromeSearch.Shared
+﻿namespace ChromeSearch.Common
 {
     public static class Constants
     {

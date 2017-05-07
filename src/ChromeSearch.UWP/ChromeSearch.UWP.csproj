@@ -132,7 +132,12 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <Import Project="..\ChromeSearch.Shared\ChromeSearch.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\ChromeSearch.Common\ChromeSearch.Common.csproj">
+      <Project>{10cdf9d1-7e52-4629-beeb-19c9ba86663e}</Project>
+      <Name>ChromeSearch.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

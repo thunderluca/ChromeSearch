@@ -1,4 +1,4 @@
-﻿using ChromeSearch.Shared;
+﻿using ChromeSearch.Common;
 using System;
 using Windows.Web.Http;
 using Windows.UI.Xaml.Controls;

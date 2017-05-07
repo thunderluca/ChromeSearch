@@ -8,8 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>ChromeSearch.Shared</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GoogleDomainsHelper.cs" />
-  </ItemGroup>
 </Project>
