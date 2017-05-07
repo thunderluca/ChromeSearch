@@ -8,24 +8,47 @@
     mc:Ignorable="d"
     DataContext="{Binding Web, Source={StaticResource Locator}}">
 
-    <WebView x:Name="WebView"
-             Grid.Row="0"
-             NewWindowRequested="OnNewWindowRequested" />
+    <Grid>
+        <WebView x:Name="WebView"
+                 NewWindowRequested="OnNewWindowRequested" />
+        <!--<ProgressBar Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Height="8"
+                     IsIndeterminate="True" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Stretch" />-->
+    </Grid>
 
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
-            <AppBarButton Icon="Back" 
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Back" 
                           Label="Back"
+                          IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
                           Command="{Binding BackCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
-            <AppBarButton Label="Search"
+                <AppBarButton Icon="Refresh" 
+                          Label="Refresh"
+                          IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
+                          Command="{Binding RefreshCommand}"
+                          Foreground="{StaticResource GoogleForegroundBrush}" />
+                <AppBarButton Label="Search"
+                          IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
                           Command="{Binding HomeCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}">
-                <AppBarButton.Icon>
-                    <BitmapIcon UriSource="/Assets/google.png" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Assets/google.png" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.Content>
+                <ProgressRing Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                              IsActive="{Binding LoadingState, Mode=OneWay}"
+                              Foreground="{StaticResource GoogleForegroundBrush}"
+                              Height="24" 
+                              Width="24"
+                              Margin="12" />
+            </CommandBar.Content>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

@@ -12,15 +12,33 @@ namespace ChromeSearch.Shared.ViewModels
 {
     public class WebViewModel : ViewModelBase
     {
-        private bool _customHttpHeaderSet;
+        private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
         private StatusBar _statusBar;
 
-        private RelayCommand _homeCommand, _backCommand;
+        private RelayCommand _homeCommand, _refreshCommand, _backCommand;
 
         private delegate void NavigateHandler(object sender);
         private event NavigateHandler OnNavigate;
+
+        public bool HomeButtonEnabled
+        {
+            get { return _homeButtonEnabled; }
+            set { Set(nameof(HomeButtonEnabled), ref _homeButtonEnabled, value); }
+        }
+
+        public bool BackButtonEnabled
+        {
+            get { return _backButtonEnabled; }
+            set { Set(nameof(BackButtonEnabled), ref _backButtonEnabled, value); }
+        }
+
+        public bool LoadingState
+        {
+            get { return _loadingState; }
+            set { Set(nameof(LoadingState), ref _loadingState, value); }
+        }
 
         public void SetWebViewInstance(WebView webViewInstance)
         {
@@ -52,6 +70,8 @@ namespace ChromeSearch.Shared.ViewModels
 
         private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
+            this.LoadingState = true;
+
             if (_customHttpHeaderSet)
             {
                 _customHttpHeaderSet = false;
@@ -68,13 +88,20 @@ namespace ChromeSearch.Shared.ViewModels
 
             var isSearchUri = GoogleDomainsHelper.IsGoogleSearch(_capturedUri);
             if (!isSearchUri)
+            {
                 _statusBar.BackgroundColor = Colors.White;
+            }
             else
                 _statusBar.BackgroundColor = Constants.GoogleStatusBarBackgroundColor;
+
+            this.HomeButtonEnabled = isSearchUri;
+            this.BackButtonEnabled = _webView.CanGoBack;
         }
 
         private void OnNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
+            this.LoadingState = false;
+
             if (_capturedUri == null) return;
 
             this.CheckUriAndUpdateStatusBar();
@@ -100,7 +127,10 @@ namespace ChromeSearch.Shared.ViewModels
             var isGoogleService = GoogleDomainsHelper.IsGoogleService(_capturedUri);
 
             if (!isGoogleUri || isGoogleService)
+            {
+                this.LoadingState = false;
                 await Launcher.LaunchUriAsync(_capturedUri);
+            }
             else
                 OnNavigate(this);
         }
@@ -118,6 +148,22 @@ namespace ChromeSearch.Shared.ViewModels
                 }
 
                 return _homeCommand;
+            }
+        }
+
+        public RelayCommand RefreshCommand
+        {
+            get
+            {
+                if (_refreshCommand == null)
+                {
+                    _refreshCommand = new RelayCommand(() =>
+                    {
+                        _webView.Refresh();
+                    });
+                }
+
+                return _refreshCommand;
             }
         }
 

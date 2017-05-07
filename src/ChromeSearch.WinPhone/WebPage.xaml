@@ -9,16 +9,30 @@
     Background="White"
     DataContext="{Binding Web, Source={StaticResource Locator}}">
 
-    <WebView x:Name="WebView" />
+    <Grid>
+        <WebView x:Name="WebView" />
+        <ProgressBar Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                     Height="8"
+                     IsIndeterminate="True" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Stretch" />
+    </Grid>
 
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
             <AppBarButton Icon="Back" 
                           Label="Back"
+                          IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
                           Command="{Binding BackCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
+            <AppBarButton Icon="Refresh" 
+                          Label="Refresh"
+                          IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
+                          Command="{Binding RefreshCommand}"
+                          Foreground="{StaticResource GoogleForegroundBrush}" />
             <AppBarButton Label="Search"
+                          IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
                           Command="{Binding HomeCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}">
                 <AppBarButton.Icon>
