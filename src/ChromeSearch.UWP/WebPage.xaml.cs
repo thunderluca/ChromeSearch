@@ -51,5 +51,10 @@ namespace ChromeSearch.UWP
             e.Handled = true;
             this.WebView.GoBack();
         }
+
+        private void OnPermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args)
+        {
+            args.PermissionRequest.Allow();
+        }
     }
 }

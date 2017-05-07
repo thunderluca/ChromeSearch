@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
@@ -52,8 +53,17 @@ namespace ChromeSearch.Shared.ViewModels
             this.OnNavigate += new NavigateHandler(Navigate);
             _webView.NavigationStarting += OnNavigationStarting;
             _webView.NavigationCompleted += OnNavigationCompleted;
+            _webView.NavigationFailed += OnNavigationFailed;
 
             _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
+        }
+
+        private async void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            await new MessageDialog(
+                content: $"An error occured. Status code: {(int)e.WebErrorStatus}", 
+                title: "Navigation error")
+                .ShowAsync();
         }
 
         public void SetStatusBarInstance(StatusBar statusBarInstance)

@@ -10,12 +10,8 @@
 
     <Grid>
         <WebView x:Name="WebView"
-                 NewWindowRequested="OnNewWindowRequested" />
-        <!--<ProgressBar Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                     Height="8"
-                     IsIndeterminate="True" 
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Stretch" />-->
+                 NewWindowRequested="OnNewWindowRequested"
+                 PermissionRequested="OnPermissionRequested" />
     </Grid>
 
     <Page.BottomAppBar>
