@@ -2,6 +2,7 @@ using ChromeSearch.Shared.Helpers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
+using System.Linq;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -13,7 +14,7 @@ namespace ChromeSearch.Shared.ViewModels
 {
     public class WebViewModel : ViewModelBase
     {
-        private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
+        private bool _customHttpHeaderSet, _isSignOutWorkflow, _homeButtonEnabled, _backButtonEnabled, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
         private StatusBar _statusBar;
@@ -84,27 +85,35 @@ namespace ChromeSearch.Shared.ViewModels
         {
             this.LoadingState = true;
 
-            if (_customHttpHeaderSet)
+            _isSignOutWorkflow = GoogleDomainsHelper.IsSignOutWorkflow(args.Uri);
+
+            if (_customHttpHeaderSet && !_isSignOutWorkflow)
             {
                 _customHttpHeaderSet = false;
                 return;
             }
 
             args.Cancel = true;
-            this.ManageUri(args.Uri);
+            if (_isSignOutWorkflow)
+            {
+                var queryParams = args.Uri.GetQueryParameters();
+                var uri = new Uri(queryParams["continue"]);
+                UriHelper.ClearCookiesFor(uri);
+                this.ManageUri(uri);
+            }
+            else
+                this.ManageUri(args.Uri);
         }
 
         private void CheckUriAndUpdateStatusBar()
         {
-            if (_statusBar == null) return;
-
             var isSearchUri = GoogleDomainsHelper.IsGoogleSearch(_capturedUri);
-            if (!isSearchUri)
+            if (_statusBar != null)
             {
-                _statusBar.BackgroundColor = Colors.White;
+                _statusBar.BackgroundColor = isSearchUri
+                    ? Constants.GoogleStatusBarBackgroundColor
+                    : Colors.White;
             }
-            else
-                _statusBar.BackgroundColor = Constants.GoogleStatusBarBackgroundColor;
 
             this.HomeButtonEnabled = isSearchUri;
             this.BackButtonEnabled = _webView.CanGoBack;

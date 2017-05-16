@@ -13,6 +13,17 @@ namespace ChromeSearch.Shared.Helpers
 
         public static bool IsGoogleSearch(Uri uri) => uri.LocalPath.StartsWith(SearchLocalPath);
 
+        public static bool IsSignOutWorkflow(Uri uri)
+        {
+            var isSignOutNavigation = uri.LocalPath.StartsWith(SignOutOptionsPath);
+            if (!isSignOutNavigation) return false;
+
+            var queryParams = uri.GetQueryParameters();
+            return queryParams.All(kvp => kvp.Key != "hl");
+        }
+
+        private const string SignOutOptionsPath = "/SignOutOptions";
+
         private const string SearchLocalPath = "/search";
 
         public static string[] Hosts = new[] 
