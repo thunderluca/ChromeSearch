@@ -15,9 +15,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StatusBarExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\UriExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\GoogleDomainsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ResourcesHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\SettingsHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\UriHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\WebViewModel.cs" />

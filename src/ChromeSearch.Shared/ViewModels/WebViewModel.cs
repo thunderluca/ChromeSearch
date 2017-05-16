@@ -2,10 +2,9 @@ using ChromeSearch.Shared.Helpers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Linq;
+using Windows.Foundation;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
@@ -14,7 +13,7 @@ namespace ChromeSearch.Shared.ViewModels
 {
     public class WebViewModel : ViewModelBase
     {
-        private bool _customHttpHeaderSet, _isSignOutWorkflow, _homeButtonEnabled, _backButtonEnabled, _loadingState;
+        private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
         private StatusBar _statusBar;
@@ -56,7 +55,11 @@ namespace ChromeSearch.Shared.ViewModels
             _webView.NavigationCompleted += OnNavigationCompleted;
             //_webView.NavigationFailed += OnNavigationFailed;
 
-            _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
+            var lastSavedUri = SettingsHelper.GetLastSavedUri();
+            if (lastSavedUri != null)
+                _webView.Navigate(lastSavedUri);
+            else
+                _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
         }
 
         //private void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
@@ -85,19 +88,20 @@ namespace ChromeSearch.Shared.ViewModels
         {
             this.LoadingState = true;
 
-            _isSignOutWorkflow = GoogleDomainsHelper.IsSignOutWorkflow(args.Uri);
+            var isSignOutWorkflow = GoogleDomainsHelper.IsSignOutWorkflow(args.Uri);
 
-            if (_customHttpHeaderSet && !_isSignOutWorkflow)
+            if (_customHttpHeaderSet && !isSignOutWorkflow)
             {
                 _customHttpHeaderSet = false;
                 return;
             }
 
             args.Cancel = true;
-            if (_isSignOutWorkflow)
+            SettingsHelper.SaveLastUri(args.Uri);
+            if (isSignOutWorkflow)
             {
-                var queryParams = args.Uri.GetQueryParameters();
-                var uri = new Uri(queryParams["continue"]);
+                var queryParams = new WwwFormUrlDecoder(args.Uri.Query);
+                var uri = new Uri(queryParams.GetFirstValueByName("continue"));
                 UriHelper.ClearCookiesFor(uri);
                 this.ManageUri(uri);
             }

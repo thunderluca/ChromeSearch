@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Windows.Foundation;
 
 namespace ChromeSearch.Shared.Helpers
 {
@@ -18,8 +19,11 @@ namespace ChromeSearch.Shared.Helpers
             var isSignOutNavigation = uri.LocalPath.StartsWith(SignOutOptionsPath);
             if (!isSignOutNavigation) return false;
 
-            var queryParams = uri.GetQueryParameters();
-            return queryParams.All(kvp => kvp.Key != "hl");
+            var queryParams = new WwwFormUrlDecoder(uri.Query);
+            if (queryParams == null || queryParams.Count == 0)
+                return false;
+
+            return queryParams.All(kvp => kvp.Name != "hl");
         }
 
         private const string SignOutOptionsPath = "/SignOutOptions";
