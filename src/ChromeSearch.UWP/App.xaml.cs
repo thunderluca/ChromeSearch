@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ChromeSearch.UWP.Views;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
@@ -18,7 +21,17 @@ namespace ChromeSearch.UWP
         public App()
         {
             this.InitializeComponent();
+            this.RegisterNavigationService();
             this.Suspending += OnSuspending;
+        }
+
+        private void RegisterNavigationService()
+        {
+            var navigationService = new NavigationService();
+            navigationService.Configure(nameof(WebPage), typeof(WebPage));
+            navigationService.Configure(nameof(SettingsPage), typeof(SettingsPage));
+
+            SimpleIoc.Default.Register<INavigationService>(() => navigationService);
         }
         
         protected override void OnLaunched(LaunchActivatedEventArgs e)

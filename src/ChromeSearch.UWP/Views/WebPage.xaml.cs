@@ -6,7 +6,7 @@ using ChromeSearch.Shared.ViewModels;
 using Windows.UI.Xaml.Navigation;
 using Windows.Phone.UI.Input;
 
-namespace ChromeSearch.UWP
+namespace ChromeSearch.UWP.Views
 {
     public sealed partial class WebPage : Page
     {

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ChromeSearch.UWP.WebPage"
+    x:Class="ChromeSearch.UWP.Views.WebPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ChromeSearch.UWP"
@@ -37,6 +37,12 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="SettingsAppBarButton" 
+                              Icon="Setting"
+                              Foreground="{StaticResource GoogleForegroundBrush}"
+                              Command="{Binding SettingsCommand}" />
+            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <ProgressRing Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                               IsActive="{Binding LoadingState, Mode=OneWay}"

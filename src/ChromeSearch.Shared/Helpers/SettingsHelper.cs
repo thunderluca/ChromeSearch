@@ -10,20 +10,21 @@ namespace ChromeSearch.Shared.Helpers
             get { return ApplicationData.Current.LocalSettings; }
         }
 
-        public static void SaveLastUri(Uri uri)
+        private static void InsertOrUpdate<T>(string key, T value)
         {
-            if (!Local.Values.ContainsKey("lastUri"))
-                Local.Values.Add("lastUri", uri.ToString());
+            if (!Local.Values.ContainsKey(key))
+                Local.Values.Add(key, value.ToString());
             else
-                Local.Values["lastUri"] = uri.ToString();
+                Local.Values[key] = value.ToString();
         }
+
+        public static void SaveLastUri(Uri uri) => InsertOrUpdate("lastUri", uri.ToString());
+
+        public static void UpdateLastUriSetting(bool isEnabled) => InsertOrUpdate("saveUri", isEnabled);
 
         public static Uri GetLastSavedUri()
         {
-            if (!Local.Values.ContainsKey("lastUri"))
-                return null;
-
-            var uriString = Local.Values["lastUri"] as string;
+            var uriString = GetValue("lastUri");
             if (string.IsNullOrWhiteSpace(uriString))
                 return null;
             try
@@ -34,6 +35,23 @@ namespace ChromeSearch.Shared.Helpers
             {
                 return null;
             }
+        }
+
+        public static bool GetSaveLastUriFlag()
+        {
+            var boolString = GetValue("saveUri");
+            if (string.IsNullOrWhiteSpace(boolString))
+                return true;
+
+            return bool.Parse(boolString);
+        }
+
+        private static string GetValue(string key)
+        {
+            if (!Local.Values.ContainsKey(key))
+                return null;
+
+            return Local.Values[key] as string;
         }
     }
 }

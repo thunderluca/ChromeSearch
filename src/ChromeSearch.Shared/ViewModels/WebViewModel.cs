@@ -1,6 +1,7 @@
 using ChromeSearch.Shared.Helpers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using System;
 using Windows.Foundation;
 using Windows.System;
@@ -13,12 +14,24 @@ namespace ChromeSearch.Shared.ViewModels
 {
     public class WebViewModel : ViewModelBase
     {
+        private readonly INavigationService NavigationService;
+
+        public WebViewModel(INavigationService navigationService)
+        {
+            if (navigationService == null)
+            {
+                throw new ArgumentNullException(nameof(navigationService));
+            }
+
+            this.NavigationService = navigationService;
+        }
+
         private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
         private StatusBar _statusBar;
 
-        private RelayCommand _homeCommand, _refreshCommand, _backCommand;
+        private RelayCommand _homeCommand, _refreshCommand, _backCommand, _settingsCommand;
 
         private delegate void NavigateHandler(object sender);
         private event NavigateHandler OnNavigate;
@@ -55,11 +68,18 @@ namespace ChromeSearch.Shared.ViewModels
             _webView.NavigationCompleted += OnNavigationCompleted;
             //_webView.NavigationFailed += OnNavigationFailed;
 
-            var lastSavedUri = SettingsHelper.GetLastSavedUri();
-            if (lastSavedUri != null)
-                _webView.Navigate(lastSavedUri);
-            else
-                _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
+            var loadLastSavedUri = SettingsHelper.GetSaveLastUriFlag();
+            if (loadLastSavedUri)
+            {
+                var lastSavedUri = SettingsHelper.GetLastSavedUri();
+                if (lastSavedUri != null)
+                {
+                    _webView.Navigate(lastSavedUri);
+                    return;
+                }
+            }
+
+            _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
         }
 
         //private void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
@@ -206,6 +226,22 @@ namespace ChromeSearch.Shared.ViewModels
                 }
 
                 return _backCommand;
+            }
+        }
+
+        public RelayCommand SettingsCommand
+        {
+            get
+            {
+                if (_settingsCommand == null)
+                {
+                    _settingsCommand = new RelayCommand(() =>
+                    {
+                        this.NavigationService.NavigateTo("SettingsPage");
+                    });
+                }
+
+                return _settingsCommand;
             }
         }
     }

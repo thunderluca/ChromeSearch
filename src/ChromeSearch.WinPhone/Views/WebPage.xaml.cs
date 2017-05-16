@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.Phone.UI.Input;
 
-namespace ChromeSearch.WinPhone
+namespace ChromeSearch.WinPhone.Views
 {
     public sealed partial class WebPage : Page
     {

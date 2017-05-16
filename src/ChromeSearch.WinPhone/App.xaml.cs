@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ChromeSearch.WinPhone.Views;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -15,9 +18,19 @@ namespace ChromeSearch.WinPhone
         public App()
         {
             this.InitializeComponent();
+            this.RegisterNavigationService();
             this.Suspending += this.OnSuspending;
         }
-        
+
+        private void RegisterNavigationService()
+        {
+            var navigationService = new NavigationService();
+            navigationService.Configure(nameof(WebPage), typeof(WebPage));
+            navigationService.Configure(nameof(SettingsPage), typeof(SettingsPage));
+
+            SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+        }
+
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var rootFrame = Window.Current.Content as Frame;

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ChromeSearch.WinPhone.WebPage"
+    x:Class="ChromeSearch.WinPhone.Views.WebPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ChromeSearch.WinPhone"
@@ -21,24 +21,32 @@
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
-            <AppBarButton x:Uid="BackAppBarButton" 
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="BackAppBarButton" 
                           Icon="Back"
                           IsEnabled="{Binding BackButtonEnabled, Mode=OneWay}"
                           Command="{Binding BackCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
-            <AppBarButton x:Uid="RefreshAppBarButton" 
+                <AppBarButton x:Uid="RefreshAppBarButton" 
                           Icon="Refresh" 
                           IsEnabled="{Binding LoadingState, Mode=OneWay, Converter={StaticResource BooleanToOppositeBooleanConverter}}"
                           Command="{Binding RefreshCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}" />
-            <AppBarButton x:Uid="SearchAppBarButton"
+                <AppBarButton x:Uid="SearchAppBarButton"
                           IsEnabled="{Binding HomeButtonEnabled, Mode=OneWay}"
                           Command="{Binding HomeCommand}"
                           Foreground="{StaticResource GoogleForegroundBrush}">
-                <AppBarButton.Icon>
-                    <BitmapIcon UriSource="/Assets/google.png" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="/Assets/google.png" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="SettingsAppBarButton" 
+                              Icon="Setting"
+                              Foreground="{StaticResource GoogleForegroundBrush}"
+                              Command="{Binding SettingsCommand}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

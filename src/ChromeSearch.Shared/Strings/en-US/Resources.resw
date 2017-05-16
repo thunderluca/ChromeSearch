@@ -120,6 +120,15 @@
   <data name="BackAppBarButton.Label" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="LastSavedUriSwitch.Header" xml:space="preserve">
+    <value>Save last visited website and load it at next app start</value>
+  </data>
+  <data name="LastSavedUriSwitch.OffContent" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="LastSavedUriSwitch.OnContent" xml:space="preserve">
+    <value>Yes</value>
+  </data>
   <data name="NavigationFailedMessageContentFormat" xml:space="preserve">
     <value>An error occured. Error code: {0}</value>
   </data>
@@ -131,5 +140,11 @@
   </data>
   <data name="SearchAppBarButton.Label" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="SettingsAppBarButton.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsTitleTextBlock.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>
