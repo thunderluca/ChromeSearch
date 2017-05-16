@@ -31,12 +31,12 @@
                     Background="Transparent"
                     FontFamily="Segoe MDL2 Assets"
                     Content=""
-                    FontSize="24"
+                    FontSize="21"
                     Height="48"
                     Command="{Binding BackCommand}" />
             <TextBlock x:Uid="SettingsTitleTextBlock"     
                        Grid.Column="1"
-                       Style="{ThemeResource TitleTextBlockStyle}"
+                       Style="{ThemeResource SubtitleTextBlockStyle}"
                        Foreground="{StaticResource GoogleBackgroundBrush}"
                        Margin="4,8"/>
         </Grid>
