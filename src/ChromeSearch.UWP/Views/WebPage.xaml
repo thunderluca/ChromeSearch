@@ -8,11 +8,9 @@
     mc:Ignorable="d"
     DataContext="{Binding Web, Source={StaticResource Locator}}">
 
-    <Grid>
-        <WebView x:Name="WebView"
-                 NewWindowRequested="OnNewWindowRequested"
-                 PermissionRequested="OnPermissionRequested" />
-    </Grid>
+    <WebView x:Name="WebView"
+             NewWindowRequested="OnNewWindowRequested"
+             PermissionRequested="OnPermissionRequested" />
 
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"

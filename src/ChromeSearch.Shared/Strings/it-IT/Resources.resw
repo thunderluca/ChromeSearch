@@ -138,6 +138,9 @@
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
     <value>Ricarica</value>
   </data>
+  <data name="SaveAppBarButton.Label" xml:space="preserve">
+    <value>Salva ed esci</value>
+  </data>
   <data name="SearchAppBarButton.Label" xml:space="preserve">
     <value>Cerca</value>
   </data>

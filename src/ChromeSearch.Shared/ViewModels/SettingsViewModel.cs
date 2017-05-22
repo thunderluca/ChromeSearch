@@ -24,7 +24,7 @@ namespace ChromeSearch.Shared.ViewModels
         }
 
         private bool _saveLastUriEnabled, _showStatusBar;
-        private RelayCommand _backCommand;
+        private RelayCommand _backCommand, _saveCommand;
 
         public bool SaveLastUriEnabled
         {
@@ -56,14 +56,32 @@ namespace ChromeSearch.Shared.ViewModels
             {
                 if (_backCommand == null)
                 {
-                    _backCommand = new RelayCommand(() =>
-                    {
-                        this.NavigationService.GoBack();
-                    });
+                    _backCommand = new RelayCommand(GoBack);
                 }
 
                 return _backCommand;
             }
+        }
+
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                {
+                    _saveCommand = new RelayCommand(GoBack);
+                }
+
+                return _saveCommand;
+            }
+        }
+
+        private void GoBack()
+        {
+            SettingsHelper.UpdateLastUriSetting(this.SaveLastUriEnabled);
+            SettingsHelper.UpdateStatusBarSetting(this.ShowStatusBar);
+
+            this.NavigationService.GoBack();
         }
     }
 }
