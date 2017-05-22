@@ -147,4 +147,13 @@
   <data name="SettingsTitleTextBlock.Text" xml:space="preserve">
     <value>Impostazioni</value>
   </data>
+  <data name="ShowStatusBarSwitch.Header" xml:space="preserve">
+    <value>Mostra barra di sistema</value>
+  </data>
+  <data name="ShowStatusBarSwitch.OffContent" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ShowStatusBarSwitch.OnContent" xml:space="preserve">
+    <value>Sì</value>
+  </data>
 </root>

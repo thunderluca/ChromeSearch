@@ -1,4 +1,5 @@
 ﻿using ChromeSearch.Shared.Helpers;
+using ChromeSearch.Shared.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -21,7 +22,7 @@ namespace ChromeSearch.Shared.ViewModels
             this.SaveLastUriEnabled = SettingsHelper.GetSaveLastUriFlag();
         }
 
-        private bool _saveLastUriEnabled;
+        private bool _saveLastUriEnabled, _showStatusBar;
         private RelayCommand _backCommand;
 
         public bool SaveLastUriEnabled
@@ -32,6 +33,19 @@ namespace ChromeSearch.Shared.ViewModels
                 if (!Set(nameof(SaveLastUriEnabled), ref _saveLastUriEnabled, value)) return;
 
                 SettingsHelper.UpdateLastUriSetting(value);
+            }
+        }
+
+        public bool ShowStatusBar
+        {
+            get { return _showStatusBar; }
+            set
+            {
+                if (!Set(nameof(ShowStatusBar), ref _showStatusBar, value)) return;
+
+                SettingsHelper.UpdateStatusBarSetting(value);
+
+                MessengerInstance.Send(new StatusBarMessage(value));
             }
         }
 

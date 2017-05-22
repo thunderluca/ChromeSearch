@@ -147,4 +147,13 @@
   <data name="SettingsTitleTextBlock.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ShowStatusBarSwitch.Header" xml:space="preserve">
+    <value>Show system tray bar</value>
+  </data>
+  <data name="ShowStatusBarSwitch.OffContent" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ShowStatusBarSwitch.OnContent" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

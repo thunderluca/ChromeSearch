@@ -5,6 +5,10 @@ namespace ChromeSearch.Shared.Helpers
 {
     public static class SettingsHelper
     {
+        private const string lastUriKey = "lastUri";
+        private const string saveUriKey = "saveUri";
+        private const string showStatusBarKey = "showStatusBar";
+
         private static ApplicationDataContainer Local
         {
             get { return ApplicationData.Current.LocalSettings; }
@@ -18,13 +22,15 @@ namespace ChromeSearch.Shared.Helpers
                 Local.Values[key] = value.ToString();
         }
 
-        public static void SaveLastUri(Uri uri) => InsertOrUpdate("lastUri", uri.ToString());
+        public static void SaveLastUri(Uri uri) => InsertOrUpdate(lastUriKey, uri.ToString());
 
-        public static void UpdateLastUriSetting(bool isEnabled) => InsertOrUpdate("saveUri", isEnabled);
+        public static void UpdateLastUriSetting(bool isEnabled) => InsertOrUpdate(saveUriKey, isEnabled);
+
+        public static void UpdateStatusBarSetting(bool showStatusBar) => InsertOrUpdate(showStatusBarKey, showStatusBar);
 
         public static Uri GetLastSavedUri()
         {
-            var uriString = GetValue("lastUri");
+            var uriString = GetValue(lastUriKey);
             if (string.IsNullOrWhiteSpace(uriString))
                 return null;
             try
@@ -37,9 +43,13 @@ namespace ChromeSearch.Shared.Helpers
             }
         }
 
-        public static bool GetSaveLastUriFlag()
+        public static bool GetSaveLastUriFlag() => GetFlagValue(saveUriKey);
+
+        public static bool GetShowStatusBarFlag() => GetFlagValue(showStatusBarKey);
+
+        private static bool GetFlagValue(string key)
         {
-            var boolString = GetValue("saveUri");
+            var boolString = GetValue(key);
             if (string.IsNullOrWhiteSpace(boolString))
                 return true;
 

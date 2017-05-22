@@ -1,4 +1,5 @@
 using ChromeSearch.Shared.Helpers;
+using ChromeSearch.Shared.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -100,8 +101,20 @@ namespace ChromeSearch.Shared.ViewModels
             }
 
             _statusBar = statusBarInstance;
-
             _statusBar.InitializeStatusBarWithGoogleColors();
+
+            var showStatusBar = SettingsHelper.GetShowStatusBarFlag();
+            this.UpdateStatusBarVisibility(showStatusBar);
+
+            MessengerInstance.Register<StatusBarMessage>(this, message => UpdateStatusBarVisibility(message.ShowStatusBar));
+        }
+
+        public async void UpdateStatusBarVisibility(bool showStatusBar)
+        {
+            if (showStatusBar)
+                await _statusBar.ShowAsync();
+            else
+                await _statusBar.HideAsync();
         }
 
         private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
