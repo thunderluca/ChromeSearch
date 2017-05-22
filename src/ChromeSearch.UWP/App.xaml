@@ -10,6 +10,10 @@
         <SolidColorBrush x:Key="GoogleBackgroundBrush">#F2F2F2</SolidColorBrush>
         <SolidColorBrush x:Key="GoogleForegroundBrush">#666666</SolidColorBrush>
         <SolidColorBrush x:Key="GoogleAppBarBrush">#E4E4E4</SolidColorBrush>
+        <SolidColorBrush x:Key="GoogleBlueBrush">#4885ED</SolidColorBrush>
+        <SolidColorBrush x:Key="GoogleRedBrush">#DB3236</SolidColorBrush>
+        <SolidColorBrush x:Key="GoogleYellowBrush">#F4C20D</SolidColorBrush>
+        <SolidColorBrush x:Key="GoogleGreenBrush">#3CBA54</SolidColorBrush>
 
         <converters:BooleanToOppositeBooleanConverter x:Key="BooleanToOppositeBooleanConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
