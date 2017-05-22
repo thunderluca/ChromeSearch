@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource GoogleBackgroundBrush}"
+    Background="White"
     DataContext="{Binding Settings, Source={StaticResource Locator}}">
     <Page.Resources>
         <FontFamily x:Key="ContentControlThemeFontFamily">Segoe WP</FontFamily>
@@ -199,7 +199,7 @@
                           IsOn="{Binding ShowStatusBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="{StaticResource GoogleForegroundBrush}"
                           Style="{StaticResource GrayToggleSwitchStyle}" 
-                          Margin="0,29.5" />
+                          Margin="0,24.5" />
         </StackPanel>
     </Grid>
 </Page>

@@ -20,6 +20,7 @@ namespace ChromeSearch.Shared.ViewModels
 
             this.NavigationService = navigationService;
             this.SaveLastUriEnabled = SettingsHelper.GetSaveLastUriFlag();
+            this.ShowStatusBar = SettingsHelper.GetShowStatusBarFlag();
         }
 
         private bool _saveLastUriEnabled, _showStatusBar;

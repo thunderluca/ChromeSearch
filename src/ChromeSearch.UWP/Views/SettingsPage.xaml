@@ -247,7 +247,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="{StaticResource GoogleBackgroundBrush}">
+    <Grid Background="White">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -281,14 +281,14 @@
         </Grid>
 
         <StackPanel Grid.Row="1"
-                    Margin="12,9.5,12,0">
+                    Margin="12,14.5,12,0">
             <ToggleSwitch x:Uid="LastSavedUriSwitch"
                           IsOn="{Binding SaveLastUriEnabled, Mode=TwoWay}"
                           Foreground="{StaticResource GoogleForegroundBrush}" Style="{StaticResource GrayToggleSwitchStyle}" />
             <ToggleSwitch x:Uid="ShowStatusBarSwitch"
                           IsOn="{Binding ShowStatusBar, Mode=TwoWay}"
                           Foreground="{StaticResource GoogleForegroundBrush}" Style="{StaticResource GrayToggleSwitchStyle}" 
-                          Margin="0,29.5" />
+                          Margin="0,14.5" />
         </StackPanel>
     </Grid>
 </Page>
