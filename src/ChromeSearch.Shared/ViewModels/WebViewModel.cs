@@ -130,7 +130,6 @@ namespace ChromeSearch.Shared.ViewModels
             }
 
             args.Cancel = true;
-            SettingsHelper.SaveLastUri(args.Uri);
             if (isSignOutWorkflow)
             {
                 var queryParams = new WwwFormUrlDecoder(args.Uri.Query);
@@ -173,6 +172,9 @@ namespace ChromeSearch.Shared.ViewModels
             httpRequestMessage.Headers.Add(Constants.UserAgentHeader, Constants.AndroidChromeUserAgent);
 
             this.CheckUriAndUpdateStatusBar();
+
+            if (SettingsHelper.GetSaveLastUriFlag())
+                SettingsHelper.SaveLastUri(_capturedUri);
 
             _webView.NavigateWithHttpRequestMessage(httpRequestMessage);
         }
