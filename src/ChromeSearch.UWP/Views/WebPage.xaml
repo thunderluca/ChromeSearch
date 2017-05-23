@@ -5,12 +5,17 @@
     xmlns:local="using:ChromeSearch.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:ChromeSearch.Shared.Views"
     mc:Ignorable="d"
     DataContext="{Binding Web, Source={StaticResource Locator}}">
 
-    <WebView x:Name="WebView"
-             NewWindowRequested="OnNewWindowRequested"
-             PermissionRequested="OnPermissionRequested" />
+    <Grid>
+        <WebView x:Name="WebView" 
+                 NewWindowRequested="OnNewWindowRequested"
+                 PermissionRequested="OnPermissionRequested" />
+
+        <controls:ErrorControl />
+    </Grid>
 
     <Page.BottomAppBar>
         <CommandBar Background="{StaticResource GoogleBackgroundBrush}"

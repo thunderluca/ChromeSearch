@@ -50,6 +50,9 @@
                           IsOn="{Binding ShowStatusBar, Mode=TwoWay}"
                           Foreground="{StaticResource GoogleForegroundBrush}" Style="{StaticResource GrayToggleSwitchStyle}" 
                           Margin="0,14.5" />
+            <ToggleSwitch x:Uid="UseBlueScreenSwitch"
+                          IsOn="{Binding UseBlueScreen, Mode=TwoWay}"
+                          Foreground="{StaticResource GoogleForegroundBrush}" Style="{StaticResource GrayToggleSwitchStyle}" />
         </StackPanel>
     </Grid>
 

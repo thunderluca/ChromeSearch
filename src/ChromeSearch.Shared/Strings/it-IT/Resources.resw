@@ -159,4 +159,13 @@
   <data name="ShowStatusBarSwitch.OnContent" xml:space="preserve">
     <value>Sì</value>
   </data>
+  <data name="UseBlueScreenSwitch.Header" xml:space="preserve">
+    <value>Utilizza Schermata Blu (!)</value>
+  </data>
+  <data name="UseBlueScreenSwitch.OffContent" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UseBlueScreenSwitch.OnContent" xml:space="preserve">
+    <value>Sì :)</value>
+  </data>
 </root>

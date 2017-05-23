@@ -11,11 +11,14 @@ namespace ChromeSearch.Shared.ViewModels
 
             SimpleIoc.Default.Register<WebViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<ErrorViewModel>();
         }
 
         public WebViewModel Web => ServiceLocator.Current.GetInstance<WebViewModel>();
 
         public SettingsViewModel Settings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+
+        public ErrorViewModel Error => ServiceLocator.Current.GetInstance<ErrorViewModel>();
 
         public static void Cleanup()
         {

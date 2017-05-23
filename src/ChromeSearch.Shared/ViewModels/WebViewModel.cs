@@ -2,6 +2,7 @@ using ChromeSearch.Shared.Helpers;
 using ChromeSearch.Shared.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using System;
 using Windows.Foundation;
@@ -26,7 +27,7 @@ namespace ChromeSearch.Shared.ViewModels
 
             this.NavigationService = navigationService;
         }
-
+        
         private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
@@ -67,7 +68,7 @@ namespace ChromeSearch.Shared.ViewModels
             this.OnNavigate += new NavigateHandler(Navigate);
             _webView.NavigationStarting += OnNavigationStarting;
             _webView.NavigationCompleted += OnNavigationCompleted;
-            //_webView.NavigationFailed += OnNavigationFailed;
+            _webView.NavigationFailed += OnNavigationFailed;
 
             var loadLastSavedUri = SettingsHelper.GetSaveLastUriFlag();
             if (loadLastSavedUri)
@@ -83,15 +84,19 @@ namespace ChromeSearch.Shared.ViewModels
             _webView.Navigate(new Uri(GoogleDomainsHelper.BaseUrl));
         }
 
-        //private void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
-        //{
-        //    var messageContentFormat = ResourcesHelper.ResourceLoader.GetString("NavigationFailedMessageContentFormat");
-        //    var messageTitle = ResourcesHelper.ResourceLoader.GetString("NavigationFailedMessageTitle");
+        private void OnNavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            var errorCode = (int)e.WebErrorStatus;
+            if (errorCode != 404) return;
 
-        //    await new MessageDialog(
-        //        content: string.Format(messageContentFormat, (int)e.WebErrorStatus),
-        //        title: messageTitle).ShowAsync();
-        //}
+            var errorViewModel = SimpleIoc.Default.GetInstance<ErrorViewModel>();
+            if (errorViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(errorViewModel));
+            }
+
+            errorViewModel.UpdateErrorCode(errorCode);
+        }
 
         public void SetStatusBarInstance(StatusBar statusBarInstance)
         {
@@ -117,8 +122,20 @@ namespace ChromeSearch.Shared.ViewModels
                 await _statusBar.HideAsync();
         }
 
+        private void ResetErrorView()
+        {
+            var errorViewModel = SimpleIoc.Default.GetInstance<ErrorViewModel>();
+            if (errorViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(errorViewModel));
+            }
+
+            errorViewModel.ResetErrorCode();
+        }
+
         private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
+            this.ResetErrorView();
             this.LoadingState = true;
 
             var isSignOutWorkflow = GoogleDomainsHelper.IsSignOutWorkflow(args.Uri);
@@ -182,7 +199,7 @@ namespace ChromeSearch.Shared.ViewModels
         public async void ManageUri(Uri uri)
         {
             _capturedUri = uri;
-
+            
             var isGoogleUri = GoogleDomainsHelper.IsGoogleUri(_capturedUri);
             var isGoogleService = GoogleDomainsHelper.IsGoogleService(_capturedUri);
 
@@ -219,6 +236,7 @@ namespace ChromeSearch.Shared.ViewModels
                 {
                     _refreshCommand = new RelayCommand(() =>
                     {
+                        this.ResetErrorView();
                         _webView.Refresh();
                     });
                 }
