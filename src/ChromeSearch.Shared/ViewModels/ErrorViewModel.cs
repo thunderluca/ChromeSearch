@@ -46,7 +46,7 @@ namespace ChromeSearch.Shared.ViewModels
         public void UpdateErrorCode(int errorCode)
         {
             this.UseBlueScreen = SettingsHelper.GetBlueScreenFlag();
-            this.BackgroundBrush = new SolidColorBrush(UseBlueScreen ? Constants.GoogleBlueColor : Colors.Transparent);
+            this.BackgroundBrush = new SolidColorBrush(UseBlueScreen ? Constants.WindowsBlueColor : Colors.Transparent);
             this.ForegroundBrush = new SolidColorBrush(UseBlueScreen ? Colors.White : Constants.GoogleForegroundColor);
             this.ErrorCode = errorCode;
             this.Visible = true;
