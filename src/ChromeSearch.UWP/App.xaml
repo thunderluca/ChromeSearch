@@ -18,6 +18,7 @@
         <converters:BooleanToOppositeBooleanConverter x:Key="BooleanToOppositeBooleanConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:BooleanToOppositeVisibilityConverter x:Key="BooleanToOppositeVisibilityConverter" />
+        <converters:BooleanToAppBarClosedDisplayMode x:Key="BooleanToAppBarClosedDisplayMode" />
 
         <vm:ViewModelLocator x:Key="Locator" />
 

@@ -9,6 +9,7 @@ namespace ChromeSearch.Shared.Helpers
         private const string saveUriKey = "saveUri";
         private const string showStatusBarKey = "showStatusBar";
         private const string blueScreenKey = "useBlueScreen";
+        private const string minimalBarKey = "useMinimalBar";
 
         private static ApplicationDataContainer Local
         {
@@ -31,6 +32,8 @@ namespace ChromeSearch.Shared.Helpers
 
         public static void UpdateBlueScreenSetting(bool useBlueScreen) => InsertOrUpdate(blueScreenKey, useBlueScreen);
 
+        public static void UpdateMinimalBarSetting(bool useMinimalBar) => InsertOrUpdate(minimalBarKey, useMinimalBar);
+
         public static Uri GetLastSavedUri()
         {
             var uriString = GetValue(lastUriKey);
@@ -51,6 +54,8 @@ namespace ChromeSearch.Shared.Helpers
         public static bool GetShowStatusBarFlag() => GetFlagValue(showStatusBarKey);
 
         public static bool GetBlueScreenFlag() => GetFlagValue(blueScreenKey, defaultValue: false);
+
+        public static bool GetMinimalBarFlag() => GetFlagValue(minimalBarKey, defaultValue: false);
 
         private static bool GetFlagValue(string key, bool defaultValue = true)
         {

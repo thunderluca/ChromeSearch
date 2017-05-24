@@ -120,6 +120,15 @@
   <data name="BackAppBarButton.Label" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="CompactBarModeAppBarButton.Label" xml:space="preserve">
+    <value>Switch to compact app bar</value>
+  </data>
+  <data name="ErrorControlCodeRun.Text" xml:space="preserve">
+    <value>ERROR_CODE </value>
+  </data>
+  <data name="ErrorControlMainRun.Text" xml:space="preserve">
+    <value>An error occured during last web request.</value>
+  </data>
   <data name="LastSavedUriSwitch.Header" xml:space="preserve">
     <value>Save last visited website and load it at next app start</value>
   </data>
@@ -129,11 +138,8 @@
   <data name="LastSavedUriSwitch.OnContent" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="NavigationFailedMessageContentFormat" xml:space="preserve">
-    <value>An error occured. Error code: {0}</value>
-  </data>
-  <data name="NavigationFailedMessageTitle" xml:space="preserve">
-    <value>Navigation error</value>
+  <data name="MinimalBarModeAppBarButton.Label" xml:space="preserve">
+    <value>Switch to minimal app bar</value>
   </data>
   <data name="RefreshAppBarButton.Label" xml:space="preserve">
     <value>Refresh</value>

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToAppBarClosedDisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToOppositeBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToOppositeVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />

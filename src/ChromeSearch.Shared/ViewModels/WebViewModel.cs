@@ -26,14 +26,15 @@ namespace ChromeSearch.Shared.ViewModels
             }
 
             this.NavigationService = navigationService;
+            this.UseMinimalBar = SettingsHelper.GetMinimalBarFlag();
         }
         
-        private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _loadingState;
+        private bool _customHttpHeaderSet, _homeButtonEnabled, _backButtonEnabled, _useMinimalBar, _loadingState;
         private Uri _capturedUri;
         private WebView _webView;
         private StatusBar _statusBar;
 
-        private RelayCommand _homeCommand, _refreshCommand, _backCommand, _settingsCommand;
+        private RelayCommand _homeCommand, _refreshCommand, _backCommand, _settingsCommand, _toggleBarModeCommand;
 
         private delegate void NavigateHandler(object sender);
         private event NavigateHandler OnNavigate;
@@ -48,6 +49,12 @@ namespace ChromeSearch.Shared.ViewModels
         {
             get { return _backButtonEnabled; }
             set { Set(nameof(BackButtonEnabled), ref _backButtonEnabled, value); }
+        }
+
+        public bool UseMinimalBar
+        {
+            get { return _useMinimalBar; }
+            set { Set(nameof(UseMinimalBar), ref _useMinimalBar, value); }
         }
 
         public bool LoadingState
@@ -275,6 +282,22 @@ namespace ChromeSearch.Shared.ViewModels
                 }
 
                 return _settingsCommand;
+            }
+        }
+
+        public RelayCommand ToggleBarModeCommand
+        {
+            get
+            {
+                if (_toggleBarModeCommand == null)
+                {
+                    _toggleBarModeCommand = new RelayCommand(() =>
+                    {
+                        this.UseMinimalBar = !this.UseMinimalBar;
+                    });
+                }
+
+                return _toggleBarModeCommand;
             }
         }
     }

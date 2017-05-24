@@ -10,6 +10,13 @@
     DataContext="{Binding Web, Source={StaticResource Locator}}">
 
     <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <PopupThemeTransition FromHorizontalOffset="0.5" 
+                                      FromVerticalOffset="0.5" />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        
         <WebView x:Name="WebView" 
                  NewWindowRequested="OnNewWindowRequested"
                  PermissionRequested="OnPermissionRequested" />
@@ -18,7 +25,8 @@
     </Grid>
 
     <Page.BottomAppBar>
-        <CommandBar Background="{StaticResource GoogleBackgroundBrush}"
+        <CommandBar ClosedDisplayMode="{Binding UseMinimalBar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToAppBarClosedDisplayMode}}" 
+                    Background="{StaticResource GoogleBackgroundBrush}"
                     Foreground="{StaticResource GoogleForegroundBrush}">
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Uid="BackAppBarButton" 
@@ -45,6 +53,14 @@
                               Icon="Setting"
                               Foreground="{StaticResource GoogleForegroundBrush}"
                               Command="{Binding SettingsCommand}" />
+                <AppBarButton x:Uid="MinimalBarModeAppBarButton"
+                              Foreground="{StaticResource GoogleForegroundBrush}"
+                              Command="{Binding ToggleBarModeCommand}" 
+                              Visibility="{Binding UseMinimalBar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToOppositeVisibilityConverter}}" />
+                <AppBarButton x:Uid="CompactBarModeAppBarButton"
+                              Foreground="{StaticResource GoogleForegroundBrush}"
+                              Command="{Binding ToggleBarModeCommand}" 
+                              Visibility="{Binding UseMinimalBar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <ProgressRing Visibility="{Binding LoadingState, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"

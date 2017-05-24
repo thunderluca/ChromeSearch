@@ -28,10 +28,10 @@
                     <Run FontSize="80" Text=":(" />
                     <LineBreak />
                     <LineBreak />
-                    <Run Text="An error occured with last web request." />
+                    <Run x:Uid="ErrorControlMainRun" />
                     <LineBreak />
                     <LineBreak />
-                    <Run Text="ERROR_CODE " />
+                    <Run x:Uid="ErrorControlCodeRun" />
                     <Run Text="{Binding ErrorCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </TextBlock>
         </StackPanel>
