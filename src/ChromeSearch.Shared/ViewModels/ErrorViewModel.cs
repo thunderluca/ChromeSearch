@@ -28,13 +28,7 @@ namespace ChromeSearch.Shared.ViewModels
         public bool UseBlueScreen
         {
             get { return _useBlueScreen; }
-            set
-            {
-                if (!Set(nameof(UseBlueScreen), ref _useBlueScreen, value)) return;
-
-                this.BackgroundBrush = new SolidColorBrush(value ? Constants.GoogleBlueColor : Colors.Transparent);
-                this.ForegroundBrush = new SolidColorBrush(value ? Colors.White : Constants.GoogleForegroundColor);
-            }
+            set { Set(nameof(UseBlueScreen), ref _useBlueScreen, value); }
         }
 
         public SolidColorBrush BackgroundBrush
@@ -52,6 +46,8 @@ namespace ChromeSearch.Shared.ViewModels
         public void UpdateErrorCode(int errorCode)
         {
             this.UseBlueScreen = SettingsHelper.GetBlueScreenFlag();
+            this.BackgroundBrush = new SolidColorBrush(UseBlueScreen ? Constants.GoogleBlueColor : Colors.Transparent);
+            this.ForegroundBrush = new SolidColorBrush(UseBlueScreen ? Colors.White : Constants.GoogleForegroundColor);
             this.ErrorCode = errorCode;
             this.Visible = true;
         }
